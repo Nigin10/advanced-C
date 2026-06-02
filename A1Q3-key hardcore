@@ -1,0 +1,33 @@
+#include <stdio.h>
+
+int main() {
+    // Write C code here
+   int a;
+   scanf("%d",&a);
+   int arr[a][a];
+   for(int i=0;i<a;i++)
+   {
+       for(int j=0;j<a;j++)
+       {
+           scanf("%d",&arr[i][j]);
+           
+       }
+   }
+   printf("enter key");
+   int key;
+   scanf("%d",&key);
+    for(int i=0;i<a;i++)
+   {
+       for(int j=0;j<a;j++)
+       {
+           if(key==arr[i][j])
+           {
+               printf("found");
+               return 0;
+           }
+           
+       }
+       
+   }
+   printf("not doud");
+}
