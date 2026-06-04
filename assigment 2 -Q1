@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<pthread.h>
+#include<signal.h>
+#include<unistd.h>
+void *thread1(void *arg)
+{
+    int a;
+    a=*(int *)arg;
+    int i,j,c=0;
+    int *s=(int *)malloc(sizeof(int));
+    for(i=1;i<=a;i++)
+    {
+        for(j=1;j<=i;j++)
+        {
+            if(i%j==0)
+            {
+                c++;
+            }
+        }
+        if(c==2)
+        {
+            *s=*s+i;
+        }
+        c=0;
+    }
+    return s;
+}
+void *thread2(void *a)
+{
+    for(int i=0;i<5;i++)
+    {
+        printf("Thread 2 \n");
+        sleep(2);
+    }
+}
+void *thread3(void *a)
+{
+    for(int i=0;i<7;i++)
+    {
+        printf("Thread 3\n");
+        sleep(3);
+    }
+}
+
+int main()
+{
+    
+    pthread_t t1,t2,t3;
+    int a;
+    scanf("%d",&a);
+    pthread_create(&t1,NULL,thread1,&a);
+    pthread_create(&t2,NULL,thread2,NULL);
+    pthread_create(&t3,NULL,thread3,NULL);
+    void *val;
+    pthread_join(t1,&val);
+    printf("%d the prime is ",*(int *)val);
+    pthread_join(t2,NULL);
+    pthread_join(t3,NULL);
+}
