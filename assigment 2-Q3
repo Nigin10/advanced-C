@@ -1,0 +1,299 @@
+1)Child Process and fork() System Call in Linux/Unix
+
+A child process is a new process created by an existing process, known as the parent process. In Unix/Linux operating systems, a child process is created using the fork() system call.
+
+The fork() system call duplicates the calling process. After a successful fork(), two processes exist:
+
+Parent Process – the original process.
+Child Process – the newly created process.
+
+Both processes execute the same program from the point where fork() is called, but they have separate memory spaces and process identifiers (PIDs).
+| Return Value | Meaning                                             |
+| ------------ | --------------------------------------------------- |
+| 0            | Returned to the child process                       |
+| > 0          | Returned to the parent process (contains child PID) |
+| -1           | Fork failed                                         |
+
+Working of fork()
+
+Parent process calls fork().
+Operating system creates a child process.
+Child receives a unique PID.
+Both parent and child continue execution independently.
+---------------------------------------------------------------
+
+2)Handling Common Signals in Unix/Linux
+
+A signal is a software interrupt sent to a process to notify it of an event that requires immediate attention. Signals provide a mechanism for communication between the operating system and processes, as well as between different processes.
+
+Signal handling allows a program to respond to specific events instead of terminating abruptly. When a signal is received, the process can perform a predefined action such as terminating gracefully, ignoring the signal, or executing a custom signal handler.
+
+Common Signals
+1. SIGINT (Interrupt Signal)
+
+Generated when the user presses Ctrl + C from the terminal. It is commonly used to interrupt a running program.
+
+2. SIGTERM (Termination Signal)
+
+Used to request a process to terminate gracefully. This is the default signal sent by the kill command.
+
+3. SIGKILL (Kill Signal)
+
+Forcibly terminates a process immediately. It cannot be caught, blocked, or ignored by the process.
+
+4. SIGSTOP (Stop Signal)
+
+Suspends the execution of a process. Like SIGKILL, it cannot be caught or ignored.
+
+5. SIGCONT (Continue Signal)
+
+Resumes the execution of a process that has been stopped.
+
+6. SIGALRM (Alarm Signal)
+
+Generated when a timer set by the process expires. It is often used for implementing timeouts.
+
+7. SIGCHLD (Child Signal)
+
+Sent to a parent process when one of its child processes terminates or changes state.
+
+8. SIGSEGV (Segmentation Fault Signal)
+
+Occurs when a program attempts to access memory that it is not allowed to access. It usually indicates a programming error.
+
+9. SIGFPE (Floating Point Exception Signal)
+
+Generated when an arithmetic error occurs, such as division by zero.
+
+10. SIGUSR1 and SIGUSR2 (User-Defined Signals)
+
+Reserved for application-specific purposes and can be used for communication between processes.
+
+Signal Handling Process
+
+When a signal is generated, the operating system delivers it to the target process. The process may:
+
+Execute the default action associated with the signal.
+Ignore the signal.
+Invoke a custom signal handler to perform specific actions.
+
+-------------------------------------
+Different Types of Kernel Crashes
+
+A kernel crash occurs when the operating system kernel encounters a critical error from which it cannot safely recover. Since the kernel manages memory, processes, devices, and hardware resources, a crash usually results in a system halt, reboot, or panic screen.
+
+1. Kernel Panic
+
+A kernel panic is the most common kernel crash in Linux and Unix systems. It occurs when the kernel detects an unrecoverable error.
+
+Causes
+Invalid memory access
+Corrupted kernel data structures
+Faulty device drivers
+Hardware failures
+Effect
+System stops functioning.
+Diagnostic information is displayed.
+Usually requires a reboot.
+
+2. Null Pointer Dereference
+
+Occurs when the kernel attempts to access memory through a NULL pointer.
+
+Causes
+Programming bugs in kernel code
+Driver errors
+Effect
+Immediate kernel exception
+Often leads to kernel panic
+3. Page Fault in Kernel Mode
+
+A page fault occurs when the kernel accesses memory that is not present or is invalid.
+
+Causes
+Invalid memory references
+Corrupted pointers
+Driver bugs
+Effect
+Kernel panic or system halt
+
+4. Stack Overflow
+
+Every kernel thread has a limited stack size. Excessive recursion or large local variables can exhaust the stack.
+
+Causes
+Infinite recursion
+Deep function call chains
+Effect
+Memory corruption
+System crash
+
+5. Divide-by-Zero Exception
+
+Occurs when kernel code performs division by zero.
+
+Causes
+Arithmetic programming errors
+Effect
+CPU exception generated
+Kernel crash if not handled
+
+6. General Protection Fault (GPF)
+
+Generated when the CPU detects illegal operations or invalid memory accesses.
+
+Causes
+Accessing restricted memory
+Invalid instructions
+Corrupted pointers
+Effect
+Kernel panic
+
+7. Deadlock
+
+A deadlock occurs when two or more kernel threads wait indefinitely for resources held by each other.
+
+Causes
+Improper lock handling
+Synchronization bugs
+Effect
+System freeze or hang
+
+8. Driver-Induced Crash
+
+Faulty device drivers are among the most common causes of kernel crashes.
+
+Causes
+Invalid memory access
+Incorrect hardware interaction
+Resource leaks
+Effect
+System instability
+Kernel panic
+
+9. Hardware-Induced Crash
+
+Hardware failures can trigger kernel crashes.
+
+Causes
+Faulty RAM
+CPU errors
+Disk corruption
+Overheating
+Effect
+Random crashes
+Data corruption
+
+10. Watchdog Timeout
+
+A watchdog timer monitors system responsiveness.
+
+Causes
+Infinite loops in kernel code
+Deadlocks
+Unresponsive drivers
+Effect
+Forced system reset
+Crash reports generated
+---------------------------------------------
+
+Time Complexity
+
+Time Complexity is a measure of the amount of time an algorithm takes to execute as the size of the input increases. It helps in analyzing the efficiency of an algorithm and comparing different algorithms independent of the computer's hardware or software.
+
+Time complexity is usually expressed using Big O notation, which describes how the running time grows with input size n.
+
+Importance of Time Complexity
+Helps compare different algorithms.
+Predicts performance for large inputs.
+Assists in selecting efficient solutions.
+Reduces execution time and resource usage.
+Asymptotic Notations
+1. Big O Notation – O()
+
+Represents the upper bound or worst-case performance of an algorithm.
+
+Example:
+
+Linear Search → O(n)
+Bubble Sort → O(n²)
+2. Omega Notation – Ω()
+
+Represents the lower bound or best-case performance.
+
+Example:
+
+Linear Search → Ω(1)
+
+when the element is found at the first position.
+
+3. Theta Notation – Θ()
+
+Represents the exact bound when upper and lower bounds are the same.
+
+Example:
+
+Merge Sort → Θ(n log n)
+
+---------------------------------------------------------------------------------------------------
+Mutex Locking Mechanism
+Introduction
+
+In a multithreaded environment, multiple threads may attempt to access and modify shared resources simultaneously. This can lead to inconsistencies in data and unpredictable program behavior. To avoid such problems, synchronization mechanisms are used. One of the most commonly used synchronization techniques is the Mutex (Mutual Exclusion).
+
+A mutex is a locking mechanism that ensures only one thread can access a shared resource or critical section at a time. It helps maintain data integrity and prevents race conditions.
+
+Definition
+
+A Mutex (Mutual Exclusion) is a synchronization object used to control access to a shared resource by multiple threads. When a thread acquires a mutex lock, no other thread can access the protected resource until the mutex is released.
+
+Need for Mutex
+
+When multiple threads access the same resource concurrently, conflicts may occur. For example, if two threads attempt to update the same variable simultaneously, the final result may become incorrect. Such situations are known as race conditions.
+
+Mutexes are used to:
+
+Prevent race conditions.
+Protect shared resources.
+Ensure data consistency.
+Synchronize thread execution.
+Working of a Mutex
+
+The operation of a mutex involves two basic actions:
+
+1. Lock Operation
+
+Before entering the critical section, a thread requests the mutex lock. If the mutex is available, the thread acquires it and proceeds. If another thread already holds the lock, the requesting thread is blocked until the mutex becomes available.
+
+2. Unlock Operation
+
+After completing its work within the critical section, the thread releases the mutex. Once unlocked, another waiting thread can acquire the mutex and access the shared resource.
+
+The sequence of operations is:
+
+Thread Requests Lock
+        ↓
+Mutex Available?
+        ↓
+      Yes
+        ↓
+Enter Critical Section
+        ↓
+Perform Operations
+        ↓
+Release Lock
+        ↓
+Other Threads Can Proceed
+Critical Section
+
+A critical section is the part of a program where shared resources are accessed or modified. Since multiple threads may attempt to execute this section simultaneously, synchronization is required.
+
+Examples of shared resources include:
+
+Global variables
+Shared memory
+Files
+Buffers
+Databases
+
+Mutexes ensure that only one thread can execute the critical section at a time.
